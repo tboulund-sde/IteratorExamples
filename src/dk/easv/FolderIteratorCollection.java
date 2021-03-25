@@ -12,11 +12,12 @@ public class FolderIteratorCollection implements IIterableCollection<String> {
 
     public FolderIteratorCollection(String rootFolder) throws IOException {
         folder = collectData(rootFolder);
+        System.out.println("Ready");
     }
 
     public Folder collectData(String folder) {
-        Folder result = new Folder();
         File root = new File(folder);
+        Folder result = new Folder(root.getName());
         for(File f : root.listFiles()) {
             if(f.isDirectory()) {
                 Folder subFolder = collectData(f.getAbsolutePath());
