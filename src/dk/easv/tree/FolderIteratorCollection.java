@@ -1,12 +1,14 @@
-package dk.easv;
+package dk.easv.tree;
 
-
-import dk.easv.model.Folder;
+import dk.easv.IIterableCollection;
+import dk.easv.IIterator;
+import dk.easv.tree.model.Folder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
-public class FolderIteratorCollection implements IIterableCollection<String> {
+public class FolderIteratorCollection implements IIterableCollection<Folder> {
 
     private Folder folder;
 
@@ -15,22 +17,22 @@ public class FolderIteratorCollection implements IIterableCollection<String> {
         System.out.println("Ready");
     }
 
-    public Folder collectData(String folder) {
+    public Folder collectData(String folder) throws IOException {
         File root = new File(folder);
         Folder result = new Folder(root.getName());
-        for(File f : root.listFiles()) {
+        File[] files = root.listFiles();
+        Arrays.sort(files);
+        for(File f : files) {
             if(f.isDirectory()) {
                 Folder subFolder = collectData(f.getAbsolutePath());
                 result.getSubFolders().add(subFolder);
-            } else {
-                result.getFiles().add(f.getName());
             }
         }
         return result;
     }
 
     @Override
-    public IIterator<String> createIterator() {
-        return null;
+    public IIterator<Folder> createIterator() {
+        return new BreadthFirstFolderIterator(folder);
     }
 }

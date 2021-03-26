@@ -1,4 +1,6 @@
-package dk.easv;
+package dk.easv.second;
+
+import dk.easv.IIterator;
 
 public class SecondIterator implements IIterator<Integer> {
 

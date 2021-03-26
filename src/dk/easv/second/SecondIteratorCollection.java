@@ -1,4 +1,7 @@
-package dk.easv;
+package dk.easv.second;
+
+import dk.easv.IIterableCollection;
+import dk.easv.IIterator;
 
 public class SecondIteratorCollection implements IIterableCollection<Integer> {
 

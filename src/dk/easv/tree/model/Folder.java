@@ -1,24 +1,29 @@
-package dk.easv.model;
+package dk.easv.tree.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Folder {
+public class Folder implements Comparable {
 
     private String name;
     private List<Folder> subFolders = new ArrayList<Folder>();
-    private List<String> files = new ArrayList<String>();
     
     public Folder(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<Folder> getSubFolders() {
         return subFolders;
     }
 
-    public List<String> getFiles() {
-        return files;
+    @Override
+    public int compareTo(Object o) {
+        Folder other = (Folder)o;
+        if (other.name == name) return 0;
+        return 1;
     }
-
 }
